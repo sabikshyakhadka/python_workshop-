@@ -1,5 +1,5 @@
 def setup_mission():
-    print("setting up for the mission ....")
+    print("setting up for the mission for you....")
     available_foods = [
     "apple",
     "banana",
