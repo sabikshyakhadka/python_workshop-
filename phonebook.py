@@ -15,7 +15,7 @@ def store_contacts():
         2. No
         """)  
         if user_choice == "1":
-            return (contacts)
+           return (contacts)
             
 my_contact_list = store_contacts()
 
