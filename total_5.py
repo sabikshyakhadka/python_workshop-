@@ -1,0 +1,9 @@
+user_number = int(input("enter your number"))
+result_number = user_number * 2
+print(f" double number = {result_number}")
+result_number += 10
+print(f"add 10 = {result_number}")
+result_number = result_number / 2
+print(f"divided 2 = {result_number}")
+result_number = result_number - user_number
+print(f"final result = {result_number}")

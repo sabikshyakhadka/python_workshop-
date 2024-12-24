@@ -24,10 +24,9 @@ print(fruits[1])
 (green , yellow, *red) = fruits
 print(green, yellow, red)
 
-
 fruits = {"apple,""banana", "cherry", "orange", "kiwi"}
 for items in fruits:
-print(fruits)
+    print(fruits)
 fruits.add("raspberry")
 print(fruits)
 

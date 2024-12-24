@@ -33,7 +33,7 @@ def decrypt_alien_message(alien_message):
     return human_message
 
 def food_divide_equally(food, crews_number):
-    equally_food = len(food)// crews_member
+    equally_food = len(food)// crews_number
     remaning_food_count = len(food) % crews_number
     return equally_food, remaning_food
 def alien_attack_game():
