@@ -12,3 +12,12 @@ print (f"""
  Now Human message = {alien_message[:: -1]} 
  """)
  
+
+
+print ("hello world") 
+x = 5
+y = "hello world"
+print (id(x))
+print (id(y))
+print (type(x))
+print (type(y))
