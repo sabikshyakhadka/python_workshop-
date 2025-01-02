@@ -1,10 +1,8 @@
 import random
 import time
-import threading
 import os
 
-# Constants for file names
-SAVE_FILE = "pet_save.TXT"
+SAVE_FILE = "pet_save.txt"
 
 class Pet:
     def __init__(self, name):
@@ -14,19 +12,19 @@ class Pet:
         self.energy = 50
 
     def feed(self):
-        self.hunger = min(self.hunger + 20, 80)
+        self.hunger = min(self.hunger + 20, 100)
         print(f"{self.name} is being fed. Hunger level: {self.hunger}")
 
     def play(self):
         if self.energy > 0:
-            self.happiness = min(self.happiness + 20, 80)
+            self.happiness = min(self.happiness + 20, 100)
             self.energy = max(self.energy - 10, 0)
             print(f"{self.name} is playing. Happiness level: {self.happiness}, Energy level: {self.energy}")
         else:
             print(f"{self.name} is too tired to play.")
 
     def rest(self):
-        self.energy = min(self.energy + 20, 80)
+        self.energy = min(self.energy + 20, 100)
         self.hunger = max(self.hunger - 5, 0)
         print(f"{self.name} is resting. Energy level: {self.energy}, Hunger level: {self.hunger}")
 
@@ -39,26 +37,29 @@ class Pet:
     def check_win(self, win_streak):
         return self.hunger > 80 and self.happiness > 80 and self.energy > 80 and win_streak >= 3
 
-    def to_dict(self):
-        return self.__dict__
+    def to_string(self):
+        return f"{self.name},{self.hunger},{self.happiness},{self.energy}"
 
     @staticmethod
-    def from_dict(data):
-        pet = Pet(data['name'])
-        pet.__dict__.update(data)
+    def from_string(data):
+         name, hunger, happiness, energy = data.split(",")
+        pet = Pet(name)
+        pet.hunger = int(hunger)
+        pet.happiness = int(happiness)
+        pet.energy = int(energy)
         return pet
 
 def save_game(pet):
     with open(SAVE_FILE, 'w') as file:
-        json.dump(pet.to_dict(), file)
+        file.write(pet.to_string())
     print("Game saved.")
 
 def load_game():
     if not os.path.exists(SAVE_FILE):
         return None
     with open(SAVE_FILE, 'r') as file:
-        data = json.load(file)
-    return Pet.from_dict(data)
+        data = file.read().strip()
+    return Pet.to_string(data)
 
 def countdown(time_sec):
     while time_sec > 0:
@@ -70,13 +71,13 @@ def random_event(pet):
     events = ["finds a toy", "loses a toy", "finds food", "gets scared"]
     event = random.choice(events)
     if event == "finds a toy":
-        pet.happiness = min(pet.happiness + 10, 80)
+        pet.happiness = min(pet.happiness + 10, 100)
         print(f"{pet.name} found a toy! Happiness level: {pet.happiness}")
     elif event == "loses a toy":
         pet.happiness = max(pet.happiness - 10, 0)
         print(f"{pet.name} lost a toy! Happiness level: {pet.happiness}")
     elif event == "finds food":
-        pet.hunger = min(pet.hunger + 10, 80)
+        pet.hunger = min(pet.hunger + 10, 100)
         print(f"{pet.name} found some food! Hunger level: {pet.hunger}")
     elif event == "gets scared":
         pet.happiness = max(pet.happiness - 10, 0)
@@ -100,11 +101,13 @@ def pet_game():
         print("2. Play")
         print("3. Rest")
         print("4. Save and Exit")
+
+        print("You have 10 seconds to choose an action...")
         
-        timer_thread = threading.Thread(target=countdown, args=(10,))
-        timer_thread.start()
+        # Allow user to choose action within 10 seconds
+        time.sleep(10)
+        
         action = input("Enter your choice (1/2/3/4): ").strip()
-        timer_thread.join()  # Wait for the timer to finish
 
         if action == "1":
             pet.feed()
@@ -119,7 +122,7 @@ def pet_game():
         else:
             print("Invalid choice. Please try again.")
 
-        if random.random() < 0.3:  # 30% chance for a random event
+        if random.random() < 0.3:
             random_event(pet)
 
         if pet.check_sickness():

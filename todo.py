@@ -10,7 +10,7 @@ LEADERBOARD_FILE = "leaderboard.txt"
         print(f"task '{task}'added to the list.")
 
 
-    save_to_file(INVENTORY_FILE, treasure)
+    save_to_file(INVENTORY_FILE, todo_list)
     return todolist
 
 def load_from_file(filename):
@@ -30,7 +30,7 @@ def display_inventory():
     else:
         print("\nNo entries in the leaderboard yet.")
 
-def update_leaderboard(player_name, score):
+def update_leaderboard(todo _list, ):
     """Update the leaderboard."""
     save_to_file(LEADERBOARD_FILE, f"{player_name}: {score}")
 
