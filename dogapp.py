@@ -18,9 +18,9 @@ class Pet:
     def play(self):
         if self.energy > 0:
             self.happiness = min(self.happiness + 20, 100)
-            self.energy = max(self.energy - 10, 0)
+            self.energy = max(self.Energy - 10, 0)
             print(f"{self.name} is playing. Happiness level: {self.happiness}, Energy level: {self.energy}")
-        else:
+        else: 
             print(f"{self.name} is too tired to play.")
 
     def rest(self):
@@ -42,7 +42,7 @@ class Pet:
 
     @staticmethod
     def from_string(data):
-         name, hunger, happiness, energy = data.split(",")
+        name, hunger, happiness, energy = data.split(",")
         pet = Pet(name)
         pet.hunger = int(hunger)
         pet.happiness = int(happiness)
